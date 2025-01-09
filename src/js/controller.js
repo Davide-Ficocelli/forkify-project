@@ -12,10 +12,6 @@ import 'regenerator-runtime/runtime';
 import View from './views/View.js';
 import previewView from './views/previewView.js';
 
-if (module.hot) {
-  module.hot.accept();
-}
-
 async function controlRecipes() {
   try {
     const id = window.location.hash.slice(1);
@@ -52,8 +48,6 @@ async function controlSearchResults() {
     await model.loadSearchResults(query);
 
     // 3) Render results
-    // resultsView.render(model.state.search.results);
-
     resultsView.render(model.getSearchResultsPage());
 
     // 4) Render initial pagination buttons
@@ -76,7 +70,6 @@ function controlServings(newServings) {
   model.updateServings(newServings);
 
   // Update the recipe view
-  // recipeView.render(model.state.recipe);
   recipeView.update(model.state.recipe);
 }
 
@@ -130,10 +123,6 @@ async function controlAddRecipe(newRecipe) {
   }
 }
 
-function newFeature() {
-  console.log('Welcome to the application');
-}
-
 function init() {
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
@@ -142,6 +131,5 @@ function init() {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
-  newFeature();
 }
 init();
